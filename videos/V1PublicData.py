@@ -1,7 +1,7 @@
 """
-!!! ************** При регистрации используй рефкод ************** !!!
-!!! **************            G5REPY                ************** !!!
-              https://www.bybit.com/invite?ref=G5REPY
+!!! При регистрации на ByBit используй рефкод      G5REPY
+!!! Поддержи канал                        https://azzrael.ru/spasibo
+!!! AzzraelCode YouTube                   https://www.youtube.com/@AzzraelCode
 """
 from pybit import exceptions
 from pybit.unified_trading import HTTP
