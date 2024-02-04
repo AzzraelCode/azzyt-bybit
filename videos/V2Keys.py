@@ -17,8 +17,8 @@ pd.set_option('display.width', 1000)
 
 # API_KEY = "dsfsdf4345345" # можно просто захардкодить
 # SECRET_KEY = "dsfsdf4345345" # можно просто захардкодить
-API_KEY = os.getenv("BBAK")
-SECRET_KEY = os.getenv("BBSK")
+API_KEY = os.getenv("BB_API_KEY")
+SECRET_KEY = os.getenv("BB_SECRET_KEY")
 
 def log_limits(headers : dict):
     print(f"Limits  {headers.get('X-Bapi-Limit-Status')} / {headers.get('X-Bapi-Limit')}")
