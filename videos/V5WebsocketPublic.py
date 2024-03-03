@@ -1,3 +1,9 @@
+"""
+!!! Исходники к ролику                    https://youtu.be/e7Np2ICYBzg
+!!! При регистрации на ByBit используй рефкод         G5REPY
+!!! Поддержи канал                        https://azzrael.ru/spasibo
+!!! AzzraelCode YouTube                   https://www.youtube.com/@AzzraelCode
+"""
 from time import sleep
 
 import requests
