@@ -57,14 +57,14 @@ def main():
         # print(r)
 
         # avbl = get_assets(cl, "SOL")
-        # print(avbl, round(avbl, 3), round_down(avbl, 3), float_trunc(avbl, 3))
+        # print(avbl, round(avbl, 3), floor_price(avbl, 3), float_trunc(avbl, 3))
 
         r = cl.place_order(
             category="linear",
             symbol="SOLUSDT",
             side="Sell",
             orderType="Market",
-            # qty=round_down(avbl, 3),
+            # qty=floor_price(avbl, 3),
             qty=2,
             marketUnit="quoteCoin",
         )
