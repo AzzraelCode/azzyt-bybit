@@ -15,7 +15,7 @@ from pybit.unified_trading import HTTP
 
 API_KEY = os.getenv("BB_API_KEY")
 SECRET_KEY = os.getenv("BB_SECRET_KEY")
-SYMBOL = "SHIB1000USDT"
+SYMBOL = "TRXUSDT"
 
 """
 ! Примеры для режима One Way Mode
@@ -193,13 +193,47 @@ class FuturesOrders:
         r = self.cl.place_order(**args)
         self.log("result", r)
 
+    def place_conditional_order(self,
+            qty : float,
+            side : str,
+            trigger_price : float,
+            order_price : Optional[float] = None,
+            order_link_id : Optional[str] = None
+       ):
+        """
+        Размещение Condiotional Order
+        :param qty:
+        :param side:
+        :param trigger_price:
+        :param order_price:
+        :param order_link_id:
+        :return:
+        """
+        curr_price = self.get_price()
+        if not order_link_id: order_link_id = f"AzzraelCode_{self.symbol}_{time.time()}"
+
+        args = dict(
+            category=self.category,
+            symbol=self.symbol,
+            side=side.capitalize(),
+            orderType="Limit",
+            qty=self.floor_qty(qty),
+            price=self.floor_price(order_price),
+            triggerPrice=self.floor_price(trigger_price),
+            triggerDirection= 1 if trigger_price > curr_price else 2,
+            orderLinkId=order_link_id
+        )
+        self.log("args", args)
+
+        r = self.cl.place_order(**args)
+        self.log("result", r)
+
+        return r
+
     def place_stop_loss(self, perc : float = 5):
         ...
 
     def place_take_profit(self, perc : float = 5):
-        ...
-
-    def place_conditional_order(self):
         ...
 
     def place_oco_order(self):
@@ -245,6 +279,12 @@ class FuturesOrders:
 def main():
     try:
         f = FuturesOrders()
+        f.place_conditional_order(
+            qty=f.min_qty,
+            side="Sell",
+            trigger_price=0.14,
+            order_price= 0.15,
+        )
 
         # f.place_limit_order_by_percent(f.min_qty, "Sell", 5)
         # f.place_limit_order_by_percent(f.min_qty, "Sell", 10)
@@ -262,14 +302,15 @@ def main():
 
         # f.reverse_position()
 
-        f.close_position()
+        # f.close_position()
 
     except exceptions.InvalidRequestError as e:
         print("ByBit API Request Error", e.status_code, e.message, sep=" | ")
     except exceptions.FailedRequestError as e:
         print("HTTP Request Failed", e.status_code, e.message, sep=" | ")
     except Exception as e:
-        print(e)
+        raise e
+        # print(e)
 
 
 if __name__ == '__main__':
