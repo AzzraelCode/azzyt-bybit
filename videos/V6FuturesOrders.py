@@ -198,32 +198,30 @@ class FuturesOrders:
             side : str,
             trigger_price : float,
             order_price : Optional[float] = None,
-            order_link_id : Optional[str] = None
        ):
         """
-        Размещение Condiotional Order
+        Размещение Conditional Order
         :param qty:
         :param side:
         :param trigger_price:
         :param order_price:
-        :param order_link_id:
         :return:
         """
         curr_price = self.get_price()
-        if not order_link_id: order_link_id = f"AzzraelCode_{self.symbol}_{time.time()}"
 
         args = dict(
             category=self.category,
             symbol=self.symbol,
             side=side.capitalize(),
-            orderType="Limit",
             qty=self.floor_qty(qty),
+
+            orderType="Limit",
             price=self.floor_price(order_price),
+
             triggerPrice=self.floor_price(trigger_price),
             triggerDirection= 1 if trigger_price > curr_price else 2,
-            orderLinkId=order_link_id
         )
-        self.log("args", args)
+        self.log('args', args)
 
         r = self.cl.place_order(**args)
         self.log("result", r)
@@ -282,8 +280,8 @@ def main():
         f.place_conditional_order(
             qty=f.min_qty,
             side="Sell",
-            trigger_price=0.14,
-            order_price= 0.15,
+            trigger_price=0.111,
+            order_price= 0.113,
         )
 
         # f.place_limit_order_by_percent(f.min_qty, "Sell", 5)
