@@ -42,7 +42,7 @@ class FuturesOrders:
         """
         r = self.cl.get_instruments_info(symbol=self.symbol, category=self.category)
         c = r.get('result', {}).get('list', [])[0]
-
+        print(c)
         min_qty = c.get('lotSizeFilter', {}).get('minOrderQty', '0.0')
         qty_decimals = abs(decimal.Decimal(min_qty).as_tuple().exponent)
         price_decimals = int(c.get('priceScale', '4'))
@@ -277,12 +277,13 @@ class FuturesOrders:
 def main():
     try:
         f = FuturesOrders()
-        f.place_conditional_order(
-            qty=f.min_qty,
-            side="Sell",
-            trigger_price=0.111,
-            order_price= 0.113,
-        )
+
+        # f.place_conditional_order(
+        #     qty=f.min_qty,
+        #     side="Sell",
+        #     trigger_price=0.111,
+        #     order_price= 0.113,
+        # )
 
         # f.place_limit_order_by_percent(f.min_qty, "Sell", 5)
         # f.place_limit_order_by_percent(f.min_qty, "Sell", 10)

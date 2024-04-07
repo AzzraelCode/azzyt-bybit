@@ -14,7 +14,8 @@ import click
 # from videos.V4SpotLimitOrder import main
 # from videos.V5WebsocketPublic import main
 # from videos.V5WebsocketPrivate import main
-from videos.V6FuturesOrders import main
+# from videos.V6FuturesOrders import main
+from videos.XMacd import main
 
 from pybit.unified_trading import WebSocket
 
